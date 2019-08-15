@@ -1,0 +1,26 @@
+{
+  "name": "merntutorial",
+  "version": "1.0.0",
+  "description": "Shopping list built with MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.0",
+    "@types/mongoose": "^5.5.6",
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
