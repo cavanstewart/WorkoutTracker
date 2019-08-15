@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import AppNavbar from './components/AppNavbar';
+import ExerciseList from './components/ExerciseList';
+import ItemModal from './components/ItemModal'
+import Home from './components/Home';
+import WorkoutCalender from './components/Calender';
+
+import { Container } from 'reactstrap';
+
+import { Provider } from 'react-redux';
+import store from './store';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from 'react-router-dom';
+
+class Workouts extends Component {
+  render() {
+    return (
+      <Container>
+        <ItemModal />
+        <ExerciseList />
+      </Container>
+    )
+  }
+}
+
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <div className="Nav">
+          <AppNavbar />
+          
+          
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/workouts" component={Workouts} />
+            <Route path="/calender" component={WorkoutCalender} />
+            <Redirect to="/" />
+         </Switch>
+        </div>
+      </Provider>
+    );
+  }
 }
 
 export default App;
