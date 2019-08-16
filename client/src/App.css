@@ -1,0 +1,46 @@
+.remove-btn {
+    margin-right: 0.5rem;
+}
+
+.right {
+    text-align: right;
+    width: 49%;
+    display: inline-block;
+}
+
+.left {
+    text-align: left;
+    width: 50%;
+    display: inline-block;
+}
+
+.fade-enter {
+    opacity: 0.01;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 1000ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0.01;
+    transition: opacity 1000ms ease-in;
+}
+
+.appear-enter {
+    opacity: 0.01;
+}
+
+.appear-enter-active {
+    opacity: 1;
+    transition: opacity 1000ms ease-in;
+}
+
+.appear-exit {
+    opacity: 0;
+}
