@@ -15,7 +15,6 @@ import './App.css';
 
 import {
   Route,
-  Link,
   Switch,
   Redirect
 } from 'react-router-dom';

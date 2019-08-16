@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, GET_ITEMS_DAY } from '../actions/types'
 
 
