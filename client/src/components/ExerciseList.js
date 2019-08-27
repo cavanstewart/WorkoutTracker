@@ -9,12 +9,17 @@ import PropTypes from 'prop-types';
 class ExerciseList extends Component {
 
     componentDidMount() {
-        var date = new Date();
-        var y = date.getFullYear();
-        var m = date.getMonth();
-        var d = date.getDate();
+        const date = new Date();
+        const y = date.getFullYear();
+        const m = date.getMonth();
+        const d = date.getDate();
         this.props.getItemsDay(d, m, y);
     }
+
+    static propTypes = {
+        getItemsDay: PropTypes.func.isRequired,
+        item: PropTypes.object.isRequired
+    };
 
     onDeleteClick = (id) => {
         this.props.deleteItem(id);
@@ -30,6 +35,7 @@ class ExerciseList extends Component {
                 <span className="right">Reps:</span>
                 
                 <ListGroup>
+                
                     <TransitionGroup className="exercise-list">
                         {items.map(({ _id, exercise, reps}) => (
                             <CSSTransition key={_id} timeout={500} classNames="fade">
@@ -57,13 +63,11 @@ class ExerciseList extends Component {
     }
 }
 
-ExerciseList.propTypes = {
-    getItems: PropTypes.func.isRequired,
-    item: PropTypes.object.isRequired
-};
+
 
 const mapStateToProps = state => ({
-    item: state.item
+    item: state.item,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, { getItems, deleteItem, getItemsDay })(ExerciseList);

@@ -11,6 +11,7 @@ import {
 } from 'reactstrap';
 
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 import { addItem } from '../actions/itemActions';
 
 class ItemModal extends Component {
@@ -18,6 +19,10 @@ class ItemModal extends Component {
         modal: false,
         exercise: '',
         reps: 0
+    }
+
+    static propTypes = {
+        auth: PropTypes.object.isRequired
     }
 
     toggle = () => {
@@ -33,9 +38,12 @@ class ItemModal extends Component {
     onSubmit = e => {
         e.preventDefault();
 
+
+        //TODO: decide what to do with user_id
         const newItem = {
             exercise: this.state.exercise,
-            reps: this.state.reps
+            reps: this.state.reps,
+            user_id: this.props.auth.user._id
         }
 
         // Add item via addItem action
@@ -48,11 +56,18 @@ class ItemModal extends Component {
     render() {
         return (
             <div>
+
+                { this.props.auth.isAuthenticated ?
                 <Button
-                    color="dark"
-                    style={{marginBottom: '2rem'}}
-                    onClick={this.toggle}
-                >Add Exercise</Button>
+                color="dark"
+                style={{marginBottom: '2rem'}}
+                onClick={this.toggle}>
+                    Add Exercise
+                </Button> :
+                <h4 className="mb-3 ml-4">Please log in to add workouts</h4>    
+            }
+
+                
 
                 <Modal
                     isOpen={this.state.modal}
@@ -68,16 +83,18 @@ class ItemModal extends Component {
                                 <Input
                                     type="text"
                                     name="exercise"
-                                    id="item"
+                                    id="exercise"
                                     placeholder="Add Exercise"
+                                    className='modal-item'
                                     onChange={this.onChange}
                                 />
                                 <Label for="item">Reps</Label>
                                 <Input
                                     type="number"
                                     name="reps"
-                                    id="item"
+                                    id="reps"
                                     placeholder="Add reps"
+                                    className='modal-item'
                                     onChange={this.onChange}
                                 />
                                 <Button
@@ -95,7 +112,9 @@ class ItemModal extends Component {
 
 const mapStateToProps = state => ({
     exercise: state.exercise,
-    reps: state.reps
+    reps: state.reps,
+    auth: state.auth,
+    //user_id: state.user.id
 });
 
 export default connect(mapStateToProps, { addItem })(ItemModal)

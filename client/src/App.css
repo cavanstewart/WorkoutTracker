@@ -44,3 +44,7 @@
 .appear-exit {
     opacity: 0;
 }
+
+.modal-item {
+    margin-bottom: 1rem;
+}

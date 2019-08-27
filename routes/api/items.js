@@ -1,5 +1,6 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
+const auth = require('../../middleware/auth');
 
 //Item Model
 const Item = require('../../models/Item')
@@ -14,22 +15,18 @@ router.get('/', (req, res) => {
         .then(items => res.json(items));
 });
 
-
 // @route  GET api/items
 // @desc   GET Items on a day
 // @access Public
 router.get('/:year/:month/:date', (req, res) => {
-    console.log(req.params.date);
-    console.log(req.params.month);
-    console.log(req.params.year);
 
-    var y = parseInt(req.params.year);
-    var m = parseInt(req.params.month);
-    var d = parseInt(req.params.date);
+    const y = parseInt(req.params.year);
+    const m = parseInt(req.params.month);
+    const d = parseInt(req.params.date);
 
     //var curr = req.params.date
-    var start = new Date(y , m, d);
-    var end = new Date(y , m, d+1);
+    const start = new Date(y , m, d);
+    const end = new Date(y , m, d+1);
     console.log(start)
     console.log(end)
     Item.find({ 'date' : {$gte: start, $lt: end} })
@@ -38,11 +35,12 @@ router.get('/:year/:month/:date', (req, res) => {
 
 // @route  POST api/items
 // @desc   Create An Item
-// @access Public
-router.post('/', (req, res) => {
+// @access Private
+router.post('/', auth, (req, res) => {
     const newItem = new Item({
         exercise: req.body.exercise,
-        reps: req.body.reps
+        reps: req.body.reps,
+        user_id: req.body.user_id
     });
 
     newItem.save().then(item => res.json(item));
@@ -50,8 +48,8 @@ router.post('/', (req, res) => {
 
 // @route   DELETE api/items
 // @desc    Delete An Item
-// @access  Public
-router.delete('/:id', (req, res) => {
+// @access  Private
+router.delete('/:id', auth, (req, res) => {
     Item.findById(req.params.id)
         .then(item => item.remove().then(() => res.json({success: true})))
         .catch(err => res.status(404).json({success: false}));
