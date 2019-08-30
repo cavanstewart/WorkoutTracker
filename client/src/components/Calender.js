@@ -6,7 +6,6 @@ import { getItemsDay } from '../actions/itemActions';
 import PropTypes from 'prop-types';
 
 import Calender from 'react-calendar'
-import { ITEMS_LOADING } from '../actions/types';
 
 class WorkoutCalender extends Component {
     state = {
@@ -30,16 +29,26 @@ class WorkoutCalender extends Component {
 
     render() {
         const { items } = this.props.item;
+        console.log(items.length === 0)
         return (
             <Container>
-                <Calender
+                <Calender className = "calender-position"
                     onChange={this.onChange}
                     value={this.state.date}
                 />
 
-            <span className="left">Exercise:</span>
-            <span className="right">Reps:</span>
-            <ListGroup>
+            
+            <ListGroup className="mt-5">
+                { (items.length !== 0) ?
+                <ListGroupItem>
+                    <span className="left">Exercise:</span>
+                    <span className="right">Reps:</span>
+                </ListGroupItem>
+                :
+                <ListGroupItem>
+                    <span className="welcome-name">No Workouts</span>
+                </ListGroupItem>
+                }
                     <TransitionGroup className="date-list">
                         {items.map(({ _id, exercise, reps}) => (
                             <CSSTransition key={_id} timeout={500} classNames="appear">

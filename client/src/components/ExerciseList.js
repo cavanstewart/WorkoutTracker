@@ -2,23 +2,33 @@ import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { getItems, deleteItem, getItemsDay } from '../actions/itemActions';
+import { deleteItem, getItemsDay } from '../actions/itemActions';
 import PropTypes from 'prop-types';
 
 
 class ExerciseList extends Component {
 
-    componentDidMount() {
-        const date = new Date();
-        const y = date.getFullYear();
-        const m = date.getMonth();
-        const d = date.getDate();
-        this.props.getItemsDay(d, m, y);
-    }
 
     static propTypes = {
         getItemsDay: PropTypes.func.isRequired,
-        item: PropTypes.object.isRequired
+        item: PropTypes.object.isRequired,
+        auth: PropTypes.object.isRequired
+    };
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.user !== this.props.user && this.props.user !== undefined && this.props.user !== null) {
+
+
+            const user_id = this.props.user._id
+            const date = new Date();
+            const y = date.getFullYear();
+            const m = date.getMonth();
+            const d = date.getDate();
+            //const user = 5
+            this.props.getItemsDay(d, m, y, user_id);
+            
+        }
+        //console.log(user)
     };
 
     onDeleteClick = (id) => {
@@ -28,8 +38,11 @@ class ExerciseList extends Component {
 
     render() {
         const { items } = this.props.item;
+        const { isAuthenticated } = this.props.auth
     
         return(
+            <div>
+            { isAuthenticated && 
             <Container>
                 <span className="left">Exercise:</span>
                 <span className="right">Reps:</span>
@@ -57,8 +70,11 @@ class ExerciseList extends Component {
                         ))}
                     </TransitionGroup>
                 </ListGroup>
-                
             </Container>
+        }
+        
+        
+        </div>
         );
     }
 }
@@ -67,7 +83,8 @@ class ExerciseList extends Component {
 
 const mapStateToProps = state => ({
     item: state.item,
-    isAuthenticated: state.auth.isAuthenticated
+    auth: state.auth,
+    user: state.auth.user
 });
 
-export default connect(mapStateToProps, { getItems, deleteItem, getItemsDay })(ExerciseList);
+export default connect(mapStateToProps, { deleteItem, getItemsDay })(ExerciseList);

@@ -48,3 +48,12 @@
 .modal-item {
     margin-bottom: 1rem;
 }
+
+.welcome-name {
+    text-align: center;
+    display: block;
+}
+
+.calender-position {
+    margin: 0 auto;
+}

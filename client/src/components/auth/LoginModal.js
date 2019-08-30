@@ -12,6 +12,7 @@ import {
     Alert
 } from 'reactstrap';
 
+
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/authActions';
@@ -40,7 +41,9 @@ class LoginModal extends Component {
 
         if(this.state.modal) {
             if(isAuthenticated) {
-                this.toggle()
+                
+                this.toggle();
+                
             }
         }
     };
@@ -77,12 +80,10 @@ class LoginModal extends Component {
 
         this.props.login(user);
         
-
-        // Close modal
-        //this.toggle();
     }
 
     render() {
+
         return (
             <div>
                 <NavLink onClick={this.toggle} href="#">

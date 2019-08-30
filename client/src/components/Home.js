@@ -1,13 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
 class Home extends Component {
 
     render() {
+        const { user } = this.props.auth
         return (
-            <h>Home</h>
+            <Fragment>
+            <span className="welcome-name">
+                        <strong>{ user ? `Welcome ${user.name}` : ''}</strong>
+                    </span>
+            </Fragment>
         )
     }
 
 }
 
-export default Home;
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps)(Home);

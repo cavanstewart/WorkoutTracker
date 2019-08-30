@@ -7,29 +7,31 @@ const Item = require('../../models/Item')
 
 
 // @route  GET api/items
-// @desc   Get All Items
-// @access Public
-router.get('/', (req, res) => {
-    Item.find()
-        .sort({date: -1})
-        .then(items => res.json(items));
-});
-
-// @route  GET api/items
 // @desc   GET Items on a day
 // @access Public
-router.get('/:year/:month/:date', (req, res) => {
+router.get('/:day/:month/:year/:user', (req, res) => {
+
+    //const user_id = req.params.user;
 
     const y = parseInt(req.params.year);
     const m = parseInt(req.params.month);
-    const d = parseInt(req.params.date);
+    const d = parseInt(req.params.day);
+
+    
 
     //var curr = req.params.date
-    const start = new Date(y , m, d);
-    const end = new Date(y , m, d+1);
-    console.log(start)
-    console.log(end)
-    Item.find({ 'date' : {$gte: start, $lt: end} })
+    const start = new Date(y, m, d);
+    const end = new Date(y, m, d+1);
+
+    
+
+    //console.log(start)
+    //console.log(end)
+
+    Item.find({ $and: [ 
+        { 'date' : {$gte: start, $lt: end} }, 
+        { 'user_id' : req.params.user }
+    ] })
         .then(items => res.json(items))
 });
 

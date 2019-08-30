@@ -33,15 +33,11 @@ class AppNavbar extends Component {
 
     render() {
 
-        const { user, isAuthenticated } = this.props.auth;
+        const { isAuthenticated } = this.props.auth;
+        console.log(isAuthenticated)
 
         const authLinks = (
             <Fragment>
-                <NavItem>
-                    <span className="navbar-text mr-3">
-                        <strong>{ user ? `Welcome ${user.name}` : ''}</strong>
-                    </span>
-                </NavItem>
                 <NavItem>
                     <Logout/>
                 </NavItem>
@@ -77,7 +73,7 @@ class AppNavbar extends Component {
                                     Calender
                                 </NavLink>
                             </NavItem>
-                            {isAuthenticated ? authLinks : guestLinks}
+                            {(isAuthenticated) ? authLinks : guestLinks}
                             
                             
                         </Nav>

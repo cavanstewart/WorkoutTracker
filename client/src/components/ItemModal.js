@@ -38,6 +38,7 @@ class ItemModal extends Component {
     onSubmit = e => {
         e.preventDefault();
 
+        console.log(this.props.auth.user._id)
 
         //TODO: decide what to do with user_id
         const newItem = {

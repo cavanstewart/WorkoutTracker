@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, GET_ITEMS_DAY } from '../actions/types'
+import { ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, GET_ITEMS_DAY } from '../actions/types'
 
 
 
@@ -9,12 +9,6 @@ const initialState = {
 
 export default function(state = initialState, action) {
     switch(action.type) {
-        case GET_ITEMS:
-            return {
-                ...state,
-                items: action.payload,
-                loading: false
-            };
         case GET_ITEMS_DAY:
             return {
                 ...state,
