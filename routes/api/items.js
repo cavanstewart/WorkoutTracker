@@ -27,6 +27,7 @@ router.get('/:day/:month/:year/:user', (req, res) => {
 
     //console.log(start)
     //console.log(end)
+    console.log(req.params.user)
 
     Item.find({ $and: [ 
         { 'date' : {$gte: start, $lt: end} }, 
@@ -39,10 +40,12 @@ router.get('/:day/:month/:year/:user', (req, res) => {
 // @desc   Create An Item
 // @access Private
 router.post('/', auth, (req, res) => {
+    
     const newItem = new Item({
         exercise: req.body.exercise,
         reps: req.body.reps,
-        user_id: req.body.user_id
+        user_id: req.body.user_id,
+        date: req.body.date
     });
 
     newItem.save().then(item => res.json(item));

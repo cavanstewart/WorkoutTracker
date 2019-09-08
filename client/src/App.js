@@ -31,6 +31,17 @@ class Workouts extends Component {
   }
 }
 
+class CalenderPage extends Component {
+  render() {
+    return (
+      <Container>
+        <WorkoutCalender />
+        <ItemModal />
+      </Container>
+    )
+  }
+}
+
 class App extends Component {
   componentDidMount() {
     store.dispatch(loadUser());
@@ -46,7 +57,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/workouts" component={Workouts} />
-            <Route path="/calender" component={WorkoutCalender} />
+            <Route path="/calender" component={CalenderPage} />
             <Redirect to="/" />
          </Switch>
         </div>

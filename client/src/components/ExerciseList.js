@@ -16,16 +16,19 @@ class ExerciseList extends Component {
     };
 
     componentDidUpdate(prevProps) {
+        console.log(prevProps.user)
+        console.log(this.props.user)
         if (prevProps.user !== this.props.user && this.props.user !== undefined && this.props.user !== null) {
 
 
-            const user_id = this.props.user._id
+            const { _id } = this.props.user
+            console.log(_id)
             const date = new Date();
             const y = date.getFullYear();
             const m = date.getMonth();
             const d = date.getDate();
-            //const user = 5
-            this.props.getItemsDay(d, m, y, user_id);
+
+            this.props.getItemsDay(d, m, y, _id);
             
         }
         //console.log(user)

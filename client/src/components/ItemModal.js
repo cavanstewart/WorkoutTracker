@@ -41,10 +41,21 @@ class ItemModal extends Component {
         console.log(this.props.auth.user._id)
 
         //TODO: decide what to do with user_id
-        const newItem = {
-            exercise: this.state.exercise,
-            reps: this.state.reps,
-            user_id: this.props.auth.user._id
+        var newItem = {}
+        if (this.props.date) { // if date is given by calender
+            newItem = {
+                exercise: this.state.exercise,
+                reps: this.state.reps,
+                user_id: this.props.auth.user._id,
+                date: this.props.date
+            }
+        } else {
+            newItem = { // if adding from workouts page
+                exercise: this.state.exercise,
+                reps: this.state.reps,
+                user_id: this.props.auth.user._id,
+                date: new Date()
+            }
         }
 
         // Add item via addItem action
@@ -115,7 +126,7 @@ const mapStateToProps = state => ({
     exercise: state.exercise,
     reps: state.reps,
     auth: state.auth,
-    //user_id: state.user.id
+    date: state.date.date,
 });
 
 export default connect(mapStateToProps, { addItem })(ItemModal)

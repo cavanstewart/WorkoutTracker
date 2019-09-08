@@ -27,7 +27,7 @@ class RegisterModal extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        console.log("error Update");
+        //console.log("error Update");
         const { error, isAuthenticated } = this.props;
         if(error !== prevProps.error) {
             if(error.id === "REGISTER_FAIL") {

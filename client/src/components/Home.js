@@ -4,12 +4,17 @@ import { connect } from 'react-redux';
 class Home extends Component {
 
     render() {
-        const { user } = this.props.auth
+        const { user, isAuthenticated } = this.props.auth
         return (
             <Fragment>
-            <span className="welcome-name">
-                        <strong>{ user ? `Welcome ${user.name}` : ''}</strong>
-                    </span>
+                { isAuthenticated ?
+                <span className="welcome-name">
+                    <strong>{ user ? `Welcome ${user.name}` : ''}</strong>
+                </span>
+                :
+                <span className="welcome-name">Please Register/Login to begin using</span>
+            
+                }
             </Fragment>
         )
     }
